@@ -1,0 +1,224 @@
+#include "visite.h"
+
+visite::visite()
+{
+   date="";
+   resultat="";
+   montant=0;
+   nb_visite=0;
+   heure_entree=0;
+   heure_sortie=0;
+   id=0;
+   matricule_vehicule="";
+
+}
+visite::visite(QString date,QString resultat,float montant,int nb_visite,int heure_entree,int heure_sortie,int id,QString matricule_vehicule){
+
+    this->date=date;
+    this->resultat=resultat;
+    this->montant=montant;
+    this->nb_visite=nb_visite;
+    this->heure_entree=heure_entree;
+    this->heure_sortie=heure_sortie;
+    this->id=id;
+    this->matricule_vehicule=matricule_vehicule;
+
+}
+QString visite::getdate_visite()
+{
+    return date;
+}
+QString visite::getresultat()
+{
+    return resultat;
+}
+int visite::getid_employe()
+{
+    return id;
+}
+QString visite::getmatricule_vehicule()
+{
+    return matricule_vehicule;
+}
+
+int visite::getnb_visite()
+{
+    return nb_visite;
+}
+int visite::getheureentree()
+{
+    return heure_entree;
+}
+int visite::getheuresortie()
+{
+    return heure_sortie;
+}
+
+float visite::getmontant()
+{
+    return montant;
+}
+
+void visite::setmontant(float mont)
+{
+    montant=mont;
+}
+void visite::setresultat(QString res)
+{
+    resultat=res;
+}
+void visite::setnb_visite(int nbvisite)
+{
+    nb_visite=nbvisite;
+}
+void visite::setid_employe(int idemp)
+{
+    id=idemp;
+}
+void visite::setdate_visite(QString datev)
+{
+    date=datev;
+}
+void visite::setheure_entree(int he)
+{
+    heure_entree=he;
+}
+void visite::setheure_sortie(int hs){
+
+   heure_sortie=hs;
+}
+void visite::setmatricule_vehicule(QString matv){
+    matricule_vehicule=matv;
+}
+
+
+bool visite::ajouter()
+{
+
+    QString id_str=QString::number(id);
+    QString montant_str=QString::number(montant);
+
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO VISITES(DATE_VISITE,RESULTAT,MONTANT,NB_VISITE,HEURE_ENTREE,HEURE_SORTIE,ID_EMPLOYE,MATRICULE_VEHICULE)" "VALUES(:date,:res,:montant,:nbvisite,:he,:hs,:id,:mat)");
+
+    query.bindValue(":date",date);
+    query.bindValue(":res",resultat);
+    query.bindValue(":montant",montant_str);
+    query.bindValue(":nbvisite",nb_visite);
+    query.bindValue(":he",heure_entree);
+    query.bindValue(":hs",heure_sortie);
+    query.bindValue(":id",id_str);
+    query.bindValue(":mat",matricule_vehicule);
+    return query.exec();
+}
+
+QSqlQueryModel * visite::afficher()
+{
+
+        QSqlQueryModel *model=new QSqlQueryModel();
+
+        model->setQuery("SELECT * FROM VISITES");
+        model->setHeaderData(0,Qt::Horizontal,QObject::tr("NUMERO"));
+        model->setHeaderData(1,Qt::Horizontal,QObject::tr("DATE_VISITE"));
+        model->setHeaderData(2,Qt::Horizontal,QObject::tr("RESULTAT"));
+        model->setHeaderData(3,Qt::Horizontal,QObject::tr("MONTANT"));
+        model->setHeaderData(4,Qt::Horizontal,QObject::tr("NB_VISITE"));
+        model->setHeaderData(5,Qt::Horizontal,QObject::tr("HEURE_ENTRE"));
+        model->setHeaderData(5,Qt::Horizontal,QObject::tr("HEURE_SORTIE"));
+        model->setHeaderData(6,Qt::Horizontal,QObject::tr("ID_EMPLOYE"));
+        model->setHeaderData(8,Qt::Horizontal,QObject::tr("MATRICULE_VEHICULE"));
+        return model;
+
+}
+  /*  bool visite::chercher_visite(int numero)
+{
+    QSqlQuery query;
+
+    query.prepare("SELECT * FROM VISITES WHERE NUMERO=:numero");
+    query.bindValue(":numero",numero);
+
+    if(query.exec() && query.next())
+        return true;
+    else
+        return false;
+
+}*/
+    bool visite::supprimer(QString matricule){
+
+        QSqlQuery query;
+
+
+             query.prepare("DELETE FROM VISITES WHERE NUMERO=:matricule");
+             query.bindValue(":matricule",matricule);
+             return query.exec();
+    }
+
+    bool visite::modifier(QString matv){
+
+        QSqlQuery query;
+        QString montant_str=QString::number(montant);
+        QString id_str=QString::number(id);
+        QString  nb_visite_str=QString::number(nb_visite);
+        QString  heure_entree_str=QString::number(heure_entree);
+        QString  heure_sortie_str=QString::number(heure_sortie);
+
+
+        if(nb_visite_str!="")
+            {
+                query.prepare("UPDATE VISITES SET NB_VISITE=:nb_visite WHERE MATRICULE_VEHICULE=:matricule");
+                   query.bindValue(":matricule",matv);
+                   query.bindValue(":nb_visite",nb_visite_str);
+                   query.exec();
+
+            }
+
+
+
+            if(montant_str!="")
+            {
+                query.prepare("UPDATE VISITES SET   MONTANT=:montant WHERE MATRICULE_VEHICULE=:matricule");
+                query.bindValue(":matricule",matv);
+                query.bindValue(":montant",montant_str);
+                query.exec();
+
+            }
+
+            if(resultat!="")
+            {
+                query.prepare("UPDATE VISITES SET RESULTAT=:resultat WHERE MATRICULE_VEHICULE=:matricule");
+                query.bindValue(":matricule",matv);
+                query.bindValue(":resultat",resultat);
+                query.exec();
+
+            }
+
+            if(heure_entree_str!="")
+            {
+                query.prepare("UPDATE VISITES SET HEURE_ENTREE=:heure_entree WHERE MATRICULE_VEHICULE=:matricule");
+                query.bindValue(":matricule",matv);
+                query.bindValue(":heure_entree",heure_entree);
+                query.exec();
+
+            }
+
+            if(heure_sortie_str!="")
+            {
+                query.prepare("UPDATE VISITES SET HEURE_SORTIE=:heure_sortie WHERE MATRICULE_VEHICULE=:matricule");
+                query.bindValue(":matricule",matv);
+                query.bindValue(":heure_sortie",heure_sortie);
+                query.exec();
+
+            }
+
+            if(date!="")
+            {
+                query.prepare("UPDATE VISITES SET DATE_VISITE=:date WHERE MATRICULE_VEHICULE=:matricule");
+                query.bindValue(":matricule",matv);
+                query.bindValue(":date",date);
+                query.exec();
+            }
+
+            return query.exec();
+
+    }
