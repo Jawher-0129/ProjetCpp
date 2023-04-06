@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>Images/voiture.jpg</file>
+        <file>Images/vehicule.jpg</file>
+        <file>Images/2022-Ford-GT-LM-edition-avant-header.jpg</file>
+        <file>Images/5809a978-f820-4ed6-90dd-0c27743480c0.jpeg</file>
+        <file>Images/automobile-pixabay.jpg</file>
+        <file>Images/voiture2.jpg</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>
