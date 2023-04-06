@@ -36,8 +36,13 @@ public:
        //bool chercher_visite(int numero);
        bool supprimer(QString matricule);
        bool ajouter();
-       bool modifier(QString matv);
+       bool modifier(int numero);
        QSqlQueryModel *afficher();
+       QSqlQueryModel *triC();
+       QSqlQueryModel *triDec();
+       QSqlQueryModel * chercher_visite(int numero);
+       float calculerremise(float montant, int nb_visites);
+
    private:
        QString date,resultat,matricule_vehicule;
        int nb_visite,heure_entree,heure_sortie,id;

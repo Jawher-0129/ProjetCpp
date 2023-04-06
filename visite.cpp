@@ -1,4 +1,6 @@
 #include "visite.h"
+#include <QPdfWriter>
+#include <QPainter>
 
 visite::visite()
 {
@@ -10,7 +12,6 @@ visite::visite()
    heure_sortie=0;
    id=0;
    matricule_vehicule="";
-
 }
 visite::visite(QString date,QString resultat,float montant,int nb_visite,int heure_entree,int heure_sortie,int id,QString matricule_vehicule){
 
@@ -103,6 +104,7 @@ bool visite::ajouter()
     query.prepare("INSERT INTO VISITES(DATE_VISITE,RESULTAT,MONTANT,NB_VISITE,HEURE_ENTREE,HEURE_SORTIE,ID_EMPLOYE,MATRICULE_VEHICULE)" "VALUES(:date,:res,:montant,:nbvisite,:he,:hs,:id,:mat)");
 
     query.bindValue(":date",date);
+
     query.bindValue(":res",resultat);
     query.bindValue(":montant",montant_str);
     query.bindValue(":nbvisite",nb_visite);
@@ -144,6 +146,8 @@ QSqlQueryModel * visite::afficher()
         return false;
 
 }*/
+
+
     bool visite::supprimer(QString matricule){
 
         QSqlQuery query;
@@ -154,7 +158,9 @@ QSqlQueryModel * visite::afficher()
              return query.exec();
     }
 
-    bool visite::modifier(QString matv){
+
+
+    bool visite::modifier(int numero){
 
         QSqlQuery query;
         QString montant_str=QString::number(montant);
@@ -163,11 +169,10 @@ QSqlQueryModel * visite::afficher()
         QString  heure_entree_str=QString::number(heure_entree);
         QString  heure_sortie_str=QString::number(heure_sortie);
 
-
         if(nb_visite_str!="")
             {
-                query.prepare("UPDATE VISITES SET NB_VISITE=:nb_visite WHERE MATRICULE_VEHICULE=:matricule");
-                   query.bindValue(":matricule",matv);
+                query.prepare("UPDATE VISITES SET NB_VISITE=:nb_visite WHERE NUMERO=:numero");
+                   query.bindValue(":numero",numero);
                    query.bindValue(":nb_visite",nb_visite_str);
                    query.exec();
 
@@ -177,8 +182,8 @@ QSqlQueryModel * visite::afficher()
 
             if(montant_str!="")
             {
-                query.prepare("UPDATE VISITES SET   MONTANT=:montant WHERE MATRICULE_VEHICULE=:matricule");
-                query.bindValue(":matricule",matv);
+                query.prepare("UPDATE VISITES SET   MONTANT=:montant WHERE NUMERO=:numero");
+                query.bindValue(":numero",numero);
                 query.bindValue(":montant",montant_str);
                 query.exec();
 
@@ -186,8 +191,8 @@ QSqlQueryModel * visite::afficher()
 
             if(resultat!="")
             {
-                query.prepare("UPDATE VISITES SET RESULTAT=:resultat WHERE MATRICULE_VEHICULE=:matricule");
-                query.bindValue(":matricule",matv);
+                query.prepare("UPDATE VISITES SET RESULTAT=:resultat WHERE NUMERO=:numero");
+                query.bindValue(":numero",numero);
                 query.bindValue(":resultat",resultat);
                 query.exec();
 
@@ -195,26 +200,26 @@ QSqlQueryModel * visite::afficher()
 
             if(heure_entree_str!="")
             {
-                query.prepare("UPDATE VISITES SET HEURE_ENTREE=:heure_entree WHERE MATRICULE_VEHICULE=:matricule");
-                query.bindValue(":matricule",matv);
-                query.bindValue(":heure_entree",heure_entree);
+                query.prepare("UPDATE VISITES SET HEURE_ENTREE=:heure_entree WHERE NUMERO=:numero");
+                query.bindValue(":numero",numero);
+                query.bindValue(":heure_entree",heure_entree_str);
                 query.exec();
 
             }
 
             if(heure_sortie_str!="")
             {
-                query.prepare("UPDATE VISITES SET HEURE_SORTIE=:heure_sortie WHERE MATRICULE_VEHICULE=:matricule");
-                query.bindValue(":matricule",matv);
-                query.bindValue(":heure_sortie",heure_sortie);
+                query.prepare("UPDATE VISITES SET HEURE_SORTIE=:heure_sortie WHERE NUMERO=:numero");
+                query.bindValue(":numero",numero);
+                query.bindValue(":heure_sortie",heure_sortie_str);
                 query.exec();
 
             }
 
             if(date!="")
             {
-                query.prepare("UPDATE VISITES SET DATE_VISITE=:date WHERE MATRICULE_VEHICULE=:matricule");
-                query.bindValue(":matricule",matv);
+                query.prepare("UPDATE VISITES SET DATE_VISITE=:date WHERE NUMERO=:numero");
+                query.bindValue(":numero",numero);
                 query.bindValue(":date",date);
                 query.exec();
             }
@@ -222,3 +227,65 @@ QSqlQueryModel * visite::afficher()
             return query.exec();
 
     }
+
+
+    QSqlQueryModel * visite::triC()
+     {
+        QSqlQueryModel *model=new QSqlQueryModel();
+       QSqlQuery *q = new QSqlQuery();
+
+        q->prepare("SELECT * FROM VISITES ORDER BY DATE_VISITE ASC");
+        q->exec();
+        model->setQuery(*q);
+        return model;
+     }
+
+     QSqlQueryModel * visite::triDec()
+     {
+        QSqlQueryModel *model=new QSqlQueryModel();
+       QSqlQuery *q = new QSqlQuery();
+
+        q->prepare("SELECT * FROM VISITES ORDER BY DATE_VISITE DESC");
+        q->exec();
+        model->setQuery(*q);
+        return model;
+     }
+
+
+     QSqlQueryModel * visite::chercher_visite(int numero)
+      {
+          QSqlQuery query;
+          QString numero_str=QString::number(numero);
+          QSqlQueryModel *model=new QSqlQueryModel();
+          model ->setQuery("SELECT * FROM VISITES WHERE NUMERO LIKE '"+numero_str+"%'");
+          return model;
+
+
+      }
+
+     float visite::calculerremise(float montant, int nb_visites){
+
+        float remise=0.0;
+
+        if (nb_visites == 5){
+            remise=0.05;
+        }
+
+        if(nb_visites >5 && nb_visites<=10){
+
+           remise=0.1;
+        }
+        if(nb_visites>=11 && nb_visites<=20){
+
+          remise=0.2;
+        }
+        if(nb_visites>=21){
+
+          remise=0.25;
+        }
+        float montantremise=montant*remise;
+        float montantavecremise=montant-montantremise;
+        return montantavecremise;
+
+     }
+

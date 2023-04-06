@@ -2,6 +2,11 @@
 #define VISITE_WINDOW_H
 #include "visite.h"
 #include <QMainWindow>
+#include <QtPrintSupport/QPrinter>
+#include <QLineSeries>
+#include <QtCharts>
+#include <QChartView>
+#include <QSqlError>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class visite_window; }
@@ -36,9 +41,27 @@ private slots:
 
     void on_pushButton_14_clicked();
 
-    void on_pushButton_3_clicked();
 
     void on_pushButton_5_clicked();
+
+
+
+
+    void on_pdf_clicked();
+
+
+
+    void on_statistique_clicked();
+
+
+
+    void on_Croissante_clicked();
+
+    void on_decroissante_clicked();
+
+    void on_recherche_clicked();
+
+    void on_tableView_2_activated(const QModelIndex &index);
 
 private:
     Ui::visite_window *ui;

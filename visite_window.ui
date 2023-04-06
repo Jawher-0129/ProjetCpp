@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1171</width>
-    <height>704</height>
+    <height>837</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>0</x>
       <y>0</y>
-      <width>1191</width>
-      <height>711</height>
+      <width>1351</width>
+      <height>791</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -50,7 +50,8 @@
       <property name="styleSheet">
        <string notr="true">font: 75 8pt &quot;MS Shell Dlg 2&quot;;
 font: 28pt &quot;Sylfaen&quot;;
-color: rgb(138, 4, 33);</string>
+color: rgb(33, 4, 148);
+border-color:rgba(0,0,0,0);</string>
       </property>
       <property name="text">
        <string>gestion de visite</string>
@@ -104,27 +105,14 @@ font:15pt &quot;MS Shell Dlg 2&quot;;</string>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #3c3c3c, stop: 1 #8a0421);
+                                      stop: 0 #140b66, stop: 1 #1e07ed);
     border: 1px solid #333;
     border-radius: 4px;
     color: #ddd;
-    font-size: 18px;
+    font-size:14px;
     padding: 10px;
     text-align: center;
     text-shadow: 1px 1px #000;
-}
-
-QPushButton:hover {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #8a0421, stop: 1 #000000);
-    color: #fff;
-}
-
-QPushButton:pressed {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #000000, stop: 1 #1e1e1e);
-    color: #ddd;
-    border: 2px inset #333;
 }</string>
       </property>
       <property name="text">
@@ -169,7 +157,7 @@ font:15pt &quot;MS Shell Dlg 2&quot;;</string>
      <widget class="QLabel" name="label_16">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>20</x>
         <y>10</y>
         <width>301</width>
         <height>101</height>
@@ -365,8 +353,8 @@ QPushButton:hover {
      <widget class="QPushButton" name="pushButton_16">
       <property name="geometry">
        <rect>
-        <x>300</x>
-        <y>570</y>
+        <x>310</x>
+        <y>630</y>
         <width>111</width>
         <height>41</height>
        </rect>
@@ -404,7 +392,7 @@ QPushButton:pressed {
       <property name="geometry">
        <rect>
         <x>950</x>
-        <y>250</y>
+        <y>320</y>
         <width>111</width>
         <height>41</height>
        </rect>
@@ -495,7 +483,7 @@ QPushButton:pressed {
 background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_20">
+     <widget class="QPushButton" name="pdf">
       <property name="geometry">
        <rect>
         <x>950</x>
@@ -537,8 +525,8 @@ QPushButton:pressed {
      <widget class="QLabel" name="label_11">
       <property name="geometry">
        <rect>
-        <x>560</x>
-        <y>550</y>
+        <x>790</x>
+        <y>610</y>
         <width>141</width>
         <height>51</height>
        </rect>
@@ -553,48 +541,11 @@ border-color:rgba(0,0,0,0);</string>
        <string>tri selon la date:</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton_3">
+     <widget class="QRadioButton" name="decroissante">
       <property name="geometry">
        <rect>
-        <x>700</x>
-        <y>560</y>
-        <width>161</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QRadioButton {
-  border: none;
-  color: #555555;
-  font-weight: bold;
-  padding: 6px 15px;
-  border-radius: 15px;
-  background-color: #f6f6f6;
-  margin-right: 7px;
-  margin-bottom: 7px;
-}
-
-QRadioButton::indicator {
-  width: 10px;
-  height: 10px;
-  border: 2px solid #555555;
-  border-radius: 5px;
-  background-color: #f6f6f6;
-}
-
-QRadioButton::indicator:checked {
-  background-color: #555555;
-}</string>
-      </property>
-      <property name="text">
-       <string>tri croissant</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButton_4">
-      <property name="geometry">
-       <rect>
-        <x>700</x>
-        <y>600</y>
+        <x>780</x>
+        <y>650</y>
         <width>161</width>
         <height>41</height>
        </rect>
@@ -627,7 +578,7 @@ QRadioButton::indicator:checked {
        <string>tri décroissant</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_21">
+     <widget class="QPushButton" name="recherche">
       <property name="geometry">
        <rect>
         <x>530</x>
@@ -806,9 +757,9 @@ border-color:rgba(0,0,0,0);</string>
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>570</y>
-        <width>191</width>
+        <x>70</x>
+        <y>600</y>
+        <width>91</width>
         <height>41</height>
        </rect>
       </property>
@@ -822,14 +773,14 @@ color: rgb(1, 114, 166);
 border-color:rgba(0,0,0,0);</string>
       </property>
       <property name="text">
-       <string>Matricule_vehicule</string>
+       <string>Numero</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_supprimer">
       <property name="geometry">
        <rect>
         <x>170</x>
-        <y>570</y>
+        <y>600</y>
         <width>121</width>
         <height>41</height>
        </rect>
@@ -841,8 +792,8 @@ border-color:rgba(0,0,0,0);</string>
      <widget class="QPushButton" name="pushButton_5">
       <property name="geometry">
        <rect>
-        <x>950</x>
-        <y>310</y>
+        <x>310</x>
+        <y>580</y>
         <width>111</width>
         <height>41</height>
        </rect>
@@ -901,33 +852,33 @@ QPushButton:pressed {
        </property>
       </item>
      </widget>
-    </widget>
-    <widget class="QWidget" name="page">
-     <widget class="QPushButton" name="pushButton_23">
+     <widget class="QPushButton" name="statistique">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>220</y>
-        <width>271</width>
-        <height>101</height>
+        <x>470</x>
+        <y>580</y>
+        <width>221</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #fcd838, stop: 1 #f0c300);
+                                stop: 0 #04c8d6, stop: 1 #04c8d6);
     border: 2px solid #000000;
     border-radius: 10px;
     padding: 10px;
+	
+	
     color: white;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     text-align: center;
 }
 
 QPushButton:hover {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #bd9a06, stop: 1 #deb60d);
+                                stop: 0 #50faf7, stop: 1 #50faf7);
     cursor: pointer;
     box-shadow: 0px 0px 5px #004040;
 }
@@ -935,60 +886,51 @@ QPushButton:hover {
 QPushButton:pressed {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #004080, stop: 1 #002040);
-}
-</string>
+}</string>
       </property>
       <property name="text">
-       <string>statistique du montant</string>
+       <string>statistique selon montant</string>
       </property>
      </widget>
-     <widget class="QTableView" name="tableView_3">
+     <widget class="QRadioButton" name="Croissante">
       <property name="geometry">
        <rect>
-        <x>360</x>
-        <y>50</y>
-        <width>561</width>
-        <height>451</height>
+        <x>780</x>
+        <y>690</y>
+        <width>161</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>537</y>
-        <width>151</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 5px;
-    font-size:14px;
+       <string notr="true">QRadioButton {
+  border: none;
+  color: #555555;
+  font-weight: bold;
+  padding: 6px 15px;
+  border-radius: 15px;
+  background-color: #f6f6f6;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
-QPushButton:hover {
-    background-color: #737370;
-    color: white;
-    border: 2px solid white;
-    transform: scale(1.1, 1.1);
-    transition: all 0.5s ease;
+QRadioButton::indicator {
+  width: 10px;
+  height: 10px;
+  border: 2px solid #555555;
+  border-radius: 5px;
+  background-color: #f6f6f6;
 }
-</string>
+
+QRadioButton::indicator:checked {
+  background-color: #555555;
+}</string>
       </property>
       <property name="text">
-       <string>retour</string>
+       <string>tri croissante</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="page"/>
     <widget class="QWidget" name="page_3">
      <widget class="QPushButton" name="pushButton_3">
       <property name="geometry">
